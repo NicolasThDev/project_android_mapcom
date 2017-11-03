@@ -29,10 +29,8 @@ public class ContactDao extends AbstractDao<Contact, Long> {
         public final static Property PhoneNumber = new Property(4, String.class, "phoneNumber", false, "PHONE_NUMBER");
         public final static Property Email = new Property(5, String.class, "email", false, "EMAIL");
         public final static Property Address = new Property(6, String.class, "address", false, "ADDRESS");
-        public final static Property PostalCode = new Property(7, String.class, "postalCode", false, "POSTAL_CODE");
-        public final static Property City = new Property(8, String.class, "city", false, "CITY");
-        public final static Property Comment = new Property(9, String.class, "comment", false, "COMMENT");
-        public final static Property Active = new Property(10, boolean.class, "active", false, "ACTIVE");
+        public final static Property Comment = new Property(7, String.class, "comment", false, "COMMENT");
+        public final static Property Active = new Property(8, boolean.class, "active", false, "ACTIVE");
     }
 
     private DaoSession daoSession;
@@ -58,10 +56,8 @@ public class ContactDao extends AbstractDao<Contact, Long> {
                 "\"PHONE_NUMBER\" TEXT," + // 4: phoneNumber
                 "\"EMAIL\" TEXT," + // 5: email
                 "\"ADDRESS\" TEXT," + // 6: address
-                "\"POSTAL_CODE\" TEXT," + // 7: postalCode
-                "\"CITY\" TEXT," + // 8: city
-                "\"COMMENT\" TEXT," + // 9: comment
-                "\"ACTIVE\" INTEGER NOT NULL );"); // 10: active
+                "\"COMMENT\" TEXT," + // 7: comment
+                "\"ACTIVE\" INTEGER NOT NULL );"); // 8: active
     }
 
     /** Drops the underlying database table. */
@@ -109,21 +105,11 @@ public class ContactDao extends AbstractDao<Contact, Long> {
             stmt.bindString(7, address);
         }
  
-        String postalCode = entity.getPostalCode();
-        if (postalCode != null) {
-            stmt.bindString(8, postalCode);
-        }
- 
-        String city = entity.getCity();
-        if (city != null) {
-            stmt.bindString(9, city);
-        }
- 
         String comment = entity.getComment();
         if (comment != null) {
-            stmt.bindString(10, comment);
+            stmt.bindString(8, comment);
         }
-        stmt.bindLong(11, entity.getActive() ? 1L: 0L);
+        stmt.bindLong(9, entity.getActive() ? 1L: 0L);
     }
 
     @Override
@@ -165,21 +151,11 @@ public class ContactDao extends AbstractDao<Contact, Long> {
             stmt.bindString(7, address);
         }
  
-        String postalCode = entity.getPostalCode();
-        if (postalCode != null) {
-            stmt.bindString(8, postalCode);
-        }
- 
-        String city = entity.getCity();
-        if (city != null) {
-            stmt.bindString(9, city);
-        }
- 
         String comment = entity.getComment();
         if (comment != null) {
-            stmt.bindString(10, comment);
+            stmt.bindString(8, comment);
         }
-        stmt.bindLong(11, entity.getActive() ? 1L: 0L);
+        stmt.bindLong(9, entity.getActive() ? 1L: 0L);
     }
 
     @Override
@@ -203,10 +179,8 @@ public class ContactDao extends AbstractDao<Contact, Long> {
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // phoneNumber
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // email
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // address
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // postalCode
-            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // city
-            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // comment
-            cursor.getShort(offset + 10) != 0 // active
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // comment
+            cursor.getShort(offset + 8) != 0 // active
         );
         return entity;
     }
@@ -220,10 +194,8 @@ public class ContactDao extends AbstractDao<Contact, Long> {
         entity.setPhoneNumber(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setEmail(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setAddress(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
-        entity.setPostalCode(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
-        entity.setCity(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
-        entity.setComment(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
-        entity.setActive(cursor.getShort(offset + 10) != 0);
+        entity.setComment(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setActive(cursor.getShort(offset + 8) != 0);
      }
     
     @Override
