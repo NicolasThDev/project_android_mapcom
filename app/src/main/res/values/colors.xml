@@ -6,5 +6,9 @@
     <color name="textColorPrimaryInverse">#ffffff</color>
     <color name="colorAccent">#f8ce31</color>
     <color name="red">#68ff0900</color>
+    <color name="white">#ffffff</color>
+    <color name="colorLabel">#969696</color>
+    <color name="colorTextBlack">#000000</color>
+    <color name="colorBlueGoogle">#4885ed</color>
 
 </resources>

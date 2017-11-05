@@ -31,6 +31,8 @@ public class ContactDao extends AbstractDao<Contact, Long> {
         public final static Property Address = new Property(6, String.class, "address", false, "ADDRESS");
         public final static Property Comment = new Property(7, String.class, "comment", false, "COMMENT");
         public final static Property Active = new Property(8, boolean.class, "active", false, "ACTIVE");
+        public final static Property Latitude = new Property(9, double.class, "latitude", false, "LATITUDE");
+        public final static Property Longitude = new Property(10, double.class, "longitude", false, "LONGITUDE");
     }
 
     private DaoSession daoSession;
@@ -57,7 +59,9 @@ public class ContactDao extends AbstractDao<Contact, Long> {
                 "\"EMAIL\" TEXT," + // 5: email
                 "\"ADDRESS\" TEXT," + // 6: address
                 "\"COMMENT\" TEXT," + // 7: comment
-                "\"ACTIVE\" INTEGER NOT NULL );"); // 8: active
+                "\"ACTIVE\" INTEGER NOT NULL ," + // 8: active
+                "\"LATITUDE\" REAL NOT NULL ," + // 9: latitude
+                "\"LONGITUDE\" REAL NOT NULL );"); // 10: longitude
     }
 
     /** Drops the underlying database table. */
@@ -110,6 +114,8 @@ public class ContactDao extends AbstractDao<Contact, Long> {
             stmt.bindString(8, comment);
         }
         stmt.bindLong(9, entity.getActive() ? 1L: 0L);
+        stmt.bindDouble(10, entity.getLatitude());
+        stmt.bindDouble(11, entity.getLongitude());
     }
 
     @Override
@@ -156,6 +162,8 @@ public class ContactDao extends AbstractDao<Contact, Long> {
             stmt.bindString(8, comment);
         }
         stmt.bindLong(9, entity.getActive() ? 1L: 0L);
+        stmt.bindDouble(10, entity.getLatitude());
+        stmt.bindDouble(11, entity.getLongitude());
     }
 
     @Override
@@ -180,7 +188,9 @@ public class ContactDao extends AbstractDao<Contact, Long> {
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // email
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // address
             cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // comment
-            cursor.getShort(offset + 8) != 0 // active
+            cursor.getShort(offset + 8) != 0, // active
+            cursor.getDouble(offset + 9), // latitude
+            cursor.getDouble(offset + 10) // longitude
         );
         return entity;
     }
@@ -196,6 +206,8 @@ public class ContactDao extends AbstractDao<Contact, Long> {
         entity.setAddress(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
         entity.setComment(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
         entity.setActive(cursor.getShort(offset + 8) != 0);
+        entity.setLatitude(cursor.getDouble(offset + 9));
+        entity.setLongitude(cursor.getDouble(offset + 10));
      }
     
     @Override

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Mapcom</string>
     <string name="add_contact">Add Contact</string>
+    <string name="detail_contact">Detail Contact</string>
     <string name="first_name">First name</string>
     <string name="last_name">Last name</string>
     <string name="company">Company</string>
@@ -18,6 +19,11 @@
     <string name="alert_dialog_contact_add_message">Do you want to add one more ?</string>
     <string name="alert_dialog_btn_yes">Yes</string>
     <string name="alert_dialog_btn_no">No</string>
+    <string name="marker_contact_more_info">more info</string>
+    <string name="marker_contact_info_click">Click on </string>
+    <string name="marker_contact_info_at_bottom"> at the bottom</string>
+    <string name="marker_contact_info_to_go">of the map to go *</string>
+    <string name="marker_contact_description_icon_direction">direction icon</string>
 
 
     <!-- Strings related to login -->
@@ -34,4 +40,5 @@
     </string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

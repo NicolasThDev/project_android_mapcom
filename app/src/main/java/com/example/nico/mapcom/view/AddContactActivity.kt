@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.support.design.widget.TextInputEditText
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.Switch
@@ -35,7 +36,7 @@ class AddContactActivity : AppCompatActivity(), View.OnClickListener, View.OnFoc
     //  ATTRIBUTES
     //-----------------
 
-    private var defaultColor: Int? = null;
+    private var defaultColor: Int? = null
 
     private var swActive: Switch? = null
     private var etFirstName: TextInputEditText? = null
@@ -47,6 +48,7 @@ class AddContactActivity : AppCompatActivity(), View.OnClickListener, View.OnFoc
     private var etComments: TextInputEditText? = null
     private var btnAdd: Button? = null
     private var btnReset: Button? = null
+    private var place: Place? = null
 
     private fun findViews() {
         swActive = findViewById<View>(R.id.sw_active) as Switch
@@ -108,6 +110,9 @@ class AddContactActivity : AppCompatActivity(), View.OnClickListener, View.OnFoc
             override fun onClick(dialog: DialogInterface?, which: Int) {
                 //click on btn NO
                 // launch next activity
+                val intent = Intent(this@AddContactActivity, MapsActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
             }
         })
         alertDialogBuilder.show()
@@ -163,8 +168,10 @@ class AddContactActivity : AppCompatActivity(), View.OnClickListener, View.OnFoc
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == ADDRESS_AUTOCOMPLETE_REQUEST_CODE) {
                 // when user selected an address, replace etAddress value
-                val place: Place = PlaceAutocomplete.getPlace(this, data)
-                etAddress!!.setText(place.address)
+                val tempPlace: Place = PlaceAutocomplete.getPlace(this, data)
+                etAddress!!.setText(tempPlace.address)
+                place = tempPlace
+                etAddress!!.error = null
             }
         }
     }
@@ -173,6 +180,22 @@ class AddContactActivity : AppCompatActivity(), View.OnClickListener, View.OnFoc
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_contact)
         findViews()
+
+        // add back button in action bar
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+
+            // launch previous activity when back button selected
+            android.R.id.home -> {
+                val intent = Intent(this, MapsActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onClick(v: View) {
@@ -193,7 +216,8 @@ class AddContactActivity : AppCompatActivity(), View.OnClickListener, View.OnFoc
                         etEmail!!.text.toString(),
                         etAddress!!.text.toString(),
                         etComments!!.text.toString(),
-                        swActive!!.isChecked
+                        swActive!!.isChecked,
+                        place!!.latLng
                 )
                 // launch alert dialog
                 showAlertDialog()

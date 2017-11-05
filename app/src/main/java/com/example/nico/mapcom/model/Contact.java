@@ -1,9 +1,9 @@
 package com.example.nico.mapcom.model;
 
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.DaoException;
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
 
 @Entity(
         active = true,
@@ -24,6 +24,7 @@ public class Contact {
             address,
             comment;
     private boolean active;
+    private double latitude, longitude;
     //------------------
     //  GENERATE
     //------------------
@@ -40,10 +41,10 @@ public class Contact {
     @Generated(hash = 2046468181)
     private transient ContactDao myDao;
 
-    @Generated(hash = 1942536753)
+    @Generated(hash = 1056896800)
     public Contact(Long id, String firstName, String lastName, String society,
-                   String phoneNumber, String email, String address, String comment,
-                   boolean active) {
+            String phoneNumber, String email, String address, String comment, boolean active,
+            double latitude, double longitude) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -53,6 +54,8 @@ public class Contact {
         this.address = address;
         this.comment = comment;
         this.active = active;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     @Generated(hash = 672515148)
@@ -174,6 +177,22 @@ public class Contact {
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getContactDao() : null;
+    }
+
+    public double getLatitude() {
+        return this.latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return this.longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
 }

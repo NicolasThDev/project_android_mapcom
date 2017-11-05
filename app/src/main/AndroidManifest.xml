@@ -4,11 +4,19 @@
 
     <!-- Mapcom API GOOGLE PLACES = AIzaSyByLIhV3OaRIciyCqrbUW-WLaQZZxGcTD0 -->
 
+
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality. 
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".presenter.MyApplication"
@@ -22,6 +30,10 @@
             android:name=".view.AddContactActivity"
             android:label="@string/add_contact"
             android:theme="@style/MapCom.Green">
+        </activity>
+        <activity
+            android:name=".view.MapsActivity"
+            android:label="@string/title_activity_maps">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,7 +43,16 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyByLIhV3OaRIciyCqrbUW-WLaQZZxGcTD0"/>
+            android:value="AIzaSyBOqflFirEt-qdNxZB3MNmH6pHofJkHyio" />
+        <meta-data
+            android:name="com.google.android.map.API_KEY"
+            android:value="AIzaSyDNT7aRY_rAZLIsL3F6m3yEgDnZgu1PiEE" />
+
+        <activity
+            android:name=".DetailContactActivity"
+            android:label="@string/detail_contact">
+
+        </activity>
     </application>
 
 </manifest>
